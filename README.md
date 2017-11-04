@@ -1,7 +1,9 @@
 # retry
 Retrying functions in Go.
 
-Documentation is [here](https://godoc.org/github.com/dc0d/retry).
+Documentation:
+
+[![GoDoc](https://godoc.org/github.com/dc0d/retry?status.svg)](https://godoc.org/github.com/dc0d/retry)
 
 Get via:
 
