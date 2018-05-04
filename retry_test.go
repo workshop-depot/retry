@@ -165,3 +165,25 @@ func ExampleRetry_period() {
 	// 50ms
 	// 100ms
 }
+
+func ExampleRetry_scheduler() {
+	// run every 50 millisecond, for 3 times:
+	var cnt int64
+	reschedule := errors.Errorf("re-schedule")
+	Retry(func() error {
+		atomic.AddInt64(&cnt, 1)
+		return reschedule
+	},
+		3, func(err error) {
+			if err == reschedule {
+				return
+			}
+			fmt.Println(err)
+		},
+		time.Millisecond*50)
+
+	fmt.Println(cnt)
+
+	// Output:
+	// 3
+}

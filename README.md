@@ -1,5 +1,5 @@
 # retry
-Retrying functions in Go.
+Retrying functions in Go, certain number of times or infinitely - Also can be used as a schaduler.
 
 Documentation:
 

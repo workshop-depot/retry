@@ -1,3 +1,5 @@
+// Package retry helps retrying functions in Go, certain number of times or
+// infinitely - Also can be used as a schaduler.
 package retry
 
 import (
