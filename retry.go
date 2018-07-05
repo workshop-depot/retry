@@ -4,20 +4,21 @@ package retry
 
 import (
 	"time"
-
-	"github.com/pkg/errors"
 )
+
+type recovered struct {
+	e interface{}
+}
+
+func (r *recovered) Error() string         { return "RECOVERED, UNKNOWN ERROR; CALL CausedBy() interface{}" }
+func (r *recovered) CausedBy() interface{} { return r.e }
 
 // Try tries to run a function and recovers from a panic, in case
 // one happens, and returns the error, if there are any.
 func Try(f func() error) (errRun error) {
 	defer func() {
 		if e := recover(); e != nil {
-			if err, ok := e.(error); ok {
-				errRun = err
-				return
-			}
-			errRun = errors.Errorf("RECOVERED, UNKNOWN ERROR: %+v", e)
+			errRun = &recovered{e: e}
 		}
 	}()
 	return f()

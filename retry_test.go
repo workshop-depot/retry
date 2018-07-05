@@ -143,7 +143,10 @@ func ExampleRetry_panic() {
 	Retry(func() error {
 		panic(errors.Errorf("FAILED"))
 	},
-		3, func(err error) { fmt.Println(err) },
+		3, func(err error) {
+			e := err.(interface{ CausedBy() interface{} })
+			fmt.Println(e.CausedBy())
+		},
 		time.Millisecond*50)
 
 	// Output:
